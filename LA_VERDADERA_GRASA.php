@@ -162,6 +162,12 @@ ob_start();
             text-shadow: 0 2px 8px #000;
             animation: fadeIn 2s;
         }
+        .instagram-btn-fixed {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+        }
     </style>
     <script>
         function toggleForms() {
@@ -171,6 +177,23 @@ ob_start();
     </script>
 </head>
 <body>
+    <a href="https://www.instagram.com/?hl=es-la" target="_blank" class="instagram-btn-fixed"
+        style="
+            background: linear-gradient(90deg, #e1306c 60%, #fdc468 100%);
+            color: #fff;
+            font-weight: bold;
+            padding: 0.7em 1.5em;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px #1e1e6b33;
+            transition: background 0.2s, transform 0.2s;
+            margin-bottom: 1em;
+            display: inline-block;
+        "
+        onmouseover="this.style.background='linear-gradient(90deg, #fdc468 60%, #e1306c 100%)';this.style.transform='scale(1.04)';"
+        onmouseout="this.style.background='linear-gradient(90deg, #e1306c 60%, #fdc468 100%)';this.style.transform='scale(1)';"
+    >Ir a Instagram</a>
     <button class="switch-btn" onclick="toggleForms()">Cambiar</button>
     <div style="display:flex; flex-direction:column; align-items:center; margin-top:2em;">
         <div class="custom-title">BILLIE FANS</div>
@@ -226,37 +249,8 @@ ob_start();
             }
         }
     }
-         else {
-            // Formulario de registro
-            $name = trim($_POST["name"] ?? "");
-            $email = trim($_POST["email"] ?? "");
-            $age = trim($_POST["age"] ?? "");
-
-            if ($name === '' || $email === '' || $age === '') {
-                $error = "Todos los campos son obligatorios.";
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $error = "Correo inválido.";
-            } elseif (!ctype_digit($age) || (int)$age < 1) {
-                $error = "La edad debe ser un número positivo.";
-            } else {
-                $line = date("Y-m-d H:i:s") . " | " .
-                    str_replace(["\r","\n","|"], '', $name) . " | " .
-                    str_replace(["\r","\n","|"], '', $email) . " | " .
-                    str_replace(["\r","\n","|"], '', $age) . PHP_EOL;
-                $file = __DIR__ . "/register.txt";
-                if (file_put_contents($file, $line, FILE_APPEND | LOCK_EX) !== false) {
-                    $success = true;
-                    $name = '';
-                    $email = '';
-                    $age = '';
-                } else {
-                    $error = "No se pudo guardar el registro. Intenta de nuevo.";
-                }
-            }
-        }
-    
     ?>
-   
+
     <div id="register-form" class="register-form<?php if($showLogin) echo ' hidden'; ?>">
         <?php if ($success): ?>
             <div class="success-message">Registro exitoso.</div>
@@ -285,39 +279,13 @@ ob_start();
             <input type="email" id="login_email" name="login_email" required>
             <button type="submit" name="login" value="1">Iniciar sesión</button>
         </form>
+    </div>
+
     <div class="footer">
         &copy; <?php echo date("Y"); ?> EL JEFE/BILLIE. Todos los derechos reservados.
     </div>
 <?php
 ob_end_flush();
 ?>
-<style>
-    .instagram-btn-fixed {
-        position: fixed;
-        top: 30px;
-        left: 30px;
-        z-index: 100;
-    }
-</style>
-<a href="https://www.instagram.com/?hl=es-la" target="_blank" class="instagram-btn-fixed"
-    style="
-        background: linear-gradient(90deg, #e1306c 60%, #fdc468 100%);
-        color: #fff;
-        font-weight: bold;
-        padding: 0.7em 1.5em;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 1.1em;
-        box-shadow: 0 2px 8px #1e1e6b33;
-        transition: background 0.2s, transform 0.2s;
-        margin-bottom: 1em;
-        display: inline-block;
-    "
-    onmouseover="this.style.background='linear-gradient(90deg, #fdc468 60%, #e1306c 100%)';this.style.transform='scale(1.04)';"
-    onmouseout="this.style.background='linear-gradient(90deg, #e1306c 60%, #fdc468 100%)';this.style.transform='scale(1)';"
->Ir a Instagram</a>
-</body>
-</html>
-    </div>
 </body>
 </html>
